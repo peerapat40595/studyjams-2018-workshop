@@ -73,7 +73,7 @@ Creating a Persistent Disk
 ======
 - Standard persistent disk -> external
 - SSD Persistent disk -> external
-- Local SSDs (Big data, AI and ML)
+- Local SSDs (Big data, AI and ML) (Backup data)
 
 ### What you'll do
 - Create a new VM instance and attach a persistent disk
@@ -122,6 +122,9 @@ sudo mkfs.ext4 -F -E lazy_itable_init=0,lazy_journal_init=0,discard /dev/disk/by
 ```
 sudo mount -o discard,defaults /dev/disk/by-id/scsi-0Google_PersistentDisk_persistent-disk-1 /mnt/mydisk
 ```
+```
+df -h
+```
 6. Automatically mount the disk on restart
 
 ```
@@ -132,6 +135,8 @@ sudo vi /etc/fstab
 UUID=e084c728-36b5-4806-bb9f-1dfb6a34b396 / ext4 defaults 1 1
 /dev/disk/by-id/scsi-0Google_PersistentDisk_persistent-disk-1 /mnt/mydisk ext4 defaults 1 1
 ```
+
+7. Resizing disk From GUI (need resize in OS)
 
 Introduction to Docker
 ======
@@ -233,3 +238,15 @@ gcloud docker -- pull gcr.io/qwiklabs-gcp-9f5ca3188c6af3d0/node-app:0.2
 docker run -p 4000:80 -d gcr.io/qwiklabs-gcp-9f5ca3188c6af3d0/node-app:0.2
 curl http://localhost:4000
 ```
+
+Rent-a-VM to Process Earthquake Data
+======
+
+### What you'll do
+- Create a Compute Engine instance with the necessary access and security.
+- SSH into the instance.
+- Install the software package Git (for source code version control).
+- Ingest data into the Compute Engine instance.
+- Transform data on the Compute Engine instance.
+- Store the transformed data on Cloud Storage.
+- Publish Cloud Storage data to the web.
