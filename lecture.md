@@ -30,6 +30,7 @@ Creating a Virtual Machine
 
 ### Let get start
 1. Compute Engine > VM Instances.
+- external ip always need to allow http 
 2. Create or 
 ```
 gcloud compute instances create gcelab2 --zone asia-southeast1-a
