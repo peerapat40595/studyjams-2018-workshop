@@ -250,3 +250,45 @@ Rent-a-VM to Process Earthquake Data
 - Transform data on the Compute Engine instance.
 - Store the transformed data on Cloud Storage.
 - Publish Cloud Storage data to the web.
+
+```
+sudo apt-get update
+sudo apt-get -y -qq install git
+git --version
+```
+
+1. Ingest USGS data
+```
+git clone https://github.com/GoogleCloudPlatform/training-data-analyst
+```
+```
+cd training-data-analyst/CPB100/lab2b
+```
+```
+#!/bin/bash
+# remove older copy of file, if it exists
+rm -f earthquakes.csv
+# download latest data from USGS
+wget http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.csv -O earthquakes.csv
+# Copyright 2016 Google Inc.
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+# http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, ei
+ther express or implied. See the License for the specific language governing permissions and limitations under the License.
+```
+```
+bash ingest.sh
+```
+2. Transform the data
+```
+bash install_missing.sh
+python transform.py
+ls -l
+```
+3. Store data
+```
+gsutil cp earthquakes.* gs://<YOUR-BUCKET>/earthquakes/
+```
+4. Publish Cloud Storage files to web
+
+Click share public
