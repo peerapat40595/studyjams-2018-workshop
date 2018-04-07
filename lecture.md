@@ -68,3 +68,73 @@ GCE (cloud launcher)
 2. Nginx Certified by Bitnami
 3. Launching the Nginx Stack
 
+Creating a Persistent Disk
+======
+- Standard persistent disk
+- SSD Persistent disk
+
+### What you'll do
+- Create a new VM instance and attach a persistent disk
+- Format and mount a persistent disk
+
+1. Create new instance
+```
+gcloud compute instances create gcelab --zone us-central1-c
+```
+2. Create a new persistent disk
+```
+gcloud compute disks create mydisk --size=200GB \
+--zone us-central1-c
+```
+3. Attaching a disk
+```
+gcloud compute instances attach-disk gcelab --disk mydisk --zone us-central1-c
+```
+4. SSH for checking
+```
+gcloud compute ssh gcelab --zone us-central1-c
+```
+- find the disk device by listing the disk devices in /dev/disk/by-id/.
+```
+ls -l /dev/disk/by-id/
+```
+default name => scsi-0Google_PersistentDisk_persistent-disk-1
+- Specify your own name
+```
+gcloud compute instances attach-disk gcelab --disk mydisk --device-name <YOUR_DEVICE_NAME> --zone us-central1-c
+```
+5. Formatting and mounting the persistent disk
+
+Once you find the block device, you can partition the disk, format it, and then mount it using the following Linux utilities:
+- mkfs: creates a filesystem
+- mount: attaches to a filesystem
+5.1 Make a mount point:
+```
+sudo mkdir /mnt/mydisk
+```
+5.2 Next, format the disk with a single ext4 filesystem using the mkfs tool. This command deletes all data from the specified disk:
+```
+sudo mkfs.ext4 -F -E lazy_itable_init=0,lazy_journal_init=0,discard /dev/disk/by-id/scsi-0Google_PersistentDisk_persistent-disk-1
+```
+5.3 Now use the mount tool to mount the disk to the instance with the discard option enabled:
+```
+sudo mount -o discard,defaults /dev/disk/by-id/scsi-0Google_PersistentDisk_persistent-disk-1 /mnt/mydisk
+```
+6. Automatically mount the disk on restart
+
+```
+sudo vi /etc/fstab
+```
+
+```
+UUID=e084c728-36b5-4806-bb9f-1dfb6a34b396 / ext4 defaults 1 1
+/dev/disk/by-id/scsi-0Google_PersistentDisk_persistent-disk-1 /mnt/mydisk ext4 defaults 1 1
+```
+
+Introduction to Docker
+======
+
+### What you'll do
+- How to build, run, and debug Docker containers
+- How to pull Docker images from Docker Hub and Google Container Registry
+- How to push Docker images to Google Container Registry
