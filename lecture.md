@@ -58,8 +58,13 @@ gcloud compute ssh gcelab2 --zone us-central1-c
 
 Provision Services with Cloud Launcher
 ======
-GCE
+GCE (cloud launcher)
 
 ### What you'll do
 - Launch a common web stack with Cloud Launcher
 - Verify your deployment
+
+1. Cloud launcher
+2. Nginx Certified by Bitnami
+3. Launching the Nginx Stack
+
