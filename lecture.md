@@ -55,3 +55,11 @@ ps auwx | grep nginx
 gcloud compute instances create gcelab2 --zone us-central1-c
 gcloud compute ssh gcelab2 --zone us-central1-c
 ```
+
+Provision Services with Cloud Launcher
+======
+GCE
+
+### What you'll do
+- Launch a common web stack with Cloud Launcher
+- Verify your deployment
